@@ -6,7 +6,7 @@ import joblib
 import os
 
 
-def train_models(mydf: pd.DataFrame):
+def train_models(mydf: pd.DataFrame,numero_arvores : int,  altura_classificador : int, altura_regressao : int ):
     currentpath = os.path.dirname(os.path.abspath(__file__))
 
     # Divide os dados em X e y, e posteriormente 80% em treino e 20% em teste
@@ -17,7 +17,7 @@ def train_models(mydf: pd.DataFrame):
 
     # Cria o Classifier (modelo 1)
     independentcols_m1 = independentcols.copy()
-    clf = rfc(n_estimators=1, max_depth=3)
+    clf = rfc(n_estimators= numero_arvores, max_depth= altura_classificador)
     clf.fit(X=X_train[independentcols_m1], y=y_train)
     clf.independentcols = independentcols_m1
     clf_acuracia = clf.score(X=X_test[independentcols_m1], y=y_test)
@@ -26,7 +26,7 @@ def train_models(mydf: pd.DataFrame):
     # Cria o Regressor (modelo 2)
     independentcols_m2 = independentcols.copy()
     independentcols_m2.remove('etnia')
-    rgs = rfr(n_estimators=1, max_depth=10)
+    rgs = rfr(n_estimators= numero_arvores, max_depth= altura_regressao )
     rgs.fit(X=X_train[independentcols_m2], y=y_train)
     rgs.independentcols = independentcols_m2
     rgs_acuracia = rgs.score(X=X_test[independentcols_m2], y=y_test)
