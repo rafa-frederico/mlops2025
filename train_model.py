@@ -42,5 +42,6 @@ def train_models(mydf: pd.DataFrame,numero_arvores : int,  altura_classificador 
 
 if __name__ == "__main__":
     # Carrega os dados
+
     mydf = pd.read_csv('./datasets/BaseDefault01.csv')
-    train_models(mydf=mydf)
+    train_models(mydf=mydf, numero_arvores=20, altura_classificador=10, altura_regressao=10)
